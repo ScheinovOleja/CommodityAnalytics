@@ -1,0 +1,10 @@
+[API]
+KEY =
+URL =
+
+[DATABASE]
+database =
+user =
+password =
+host = localhost
+port = 5432
