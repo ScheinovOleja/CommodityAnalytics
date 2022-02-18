@@ -39,58 +39,5 @@ class ProductAnalytics(db.Entity):
     create_date_at = Optional(datetime.datetime)
     create_date_to = Optional(datetime.datetime)
 
-    @classmethod
-    def get_or_create(cls, **kwargs):
-        r = cls.get(**kwargs)
-        if r is None:
-            return cls(**kwargs), True
-        else:
-            return r, False
-
-    @classmethod
-    def update_or_create(cls, **kwargs):
-        try:
-            instance = cls[tuple(kwargs[pk_attr.name] for pk_attr in cls._pk_attrs_)]
-        except Exception as err:
-            return cls(**kwargs)
-        else:
-            instance.set(**kwargs)
-            return instance
-
-
-# class Agreement(db.Entity):
-#     id = PrimaryKey(int, auto=True)
-#     count = Optional(int, default=0)
-#     price_sum = Optional(float, default=0.0)
-#     product = Set(ProductAnalytics, reverse='agreement', nullable=False)
-#
-#
-# class Equipment(db.Entity):
-#     id = PrimaryKey(int, auto=True)
-#     count = Optional(int, default=0)
-#     price_sum = Optional(float, default=0)
-#     product = Set(ProductAnalytics, reverse='equipment', nullable=False)
-#
-#
-# class Delivery(db.Entity):
-#     id = PrimaryKey(int, auto=True)
-#     count = Optional(int, default=0)
-#     price_sum = Optional(float, default=0)
-#     product = Set(ProductAnalytics, reverse='delivery', nullable=False)
-#
-#
-# class Completed(db.Entity):
-#     id = PrimaryKey(int, auto=True)
-#     count = Optional(int, default=0)
-#     price_sum = Optional(float, default=0)
-#     product = Set(ProductAnalytics, reverse='completed', nullable=False)
-#
-#
-# class Canceled(db.Entity):
-#     id = PrimaryKey(int, auto=True)
-#     count = Optional(int, default=0)
-#     price_sum = Optional(float, default=0)
-#     product = Set(ProductAnalytics, reverse='canceled', nullable=False)
-
 
 db.generate_mapping(create_tables=True)
