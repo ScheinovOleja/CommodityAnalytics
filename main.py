@@ -337,7 +337,7 @@ class ParserRetailCRM:
         :param page: страница в товарах(их 8 на данный момент)
         :return:
         """
-        products = self.client.products(filters={'name': 'Вейдерсы Finntrail Speedmaster 1528 CamoArmy_N'}, limit=20, page=page).get_response()
+        products = self.client.products(filters={}, limit=20, page=page).get_response()
         return products['products'], products['pagination']['totalPageCount']
 
     def get_orders(self, page, article):
