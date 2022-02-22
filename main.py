@@ -302,7 +302,10 @@ class ParserRetailCRM:
                 print(f'\033[37m|Страница {page} из {stop} в заказах!\n'
                       f'----------------------------------------------------------------\n')
                 page += 1
-                self.parse_history(orders, product)
+                try:
+                    self.parse_history(orders, product)
+                except Exception:
+                    continue
 
     def parse_history(self, orders, product):
         """
@@ -334,7 +337,7 @@ class ParserRetailCRM:
         :param page: страница в товарах(их 8 на данный момент)
         :return:
         """
-        products = self.client.products(filters={}, limit=20, page=page).get_response()
+        products = self.client.products(filters={'name': 'Вейдерсы Finntrail Speedmaster 1528 CamoArmy_N'}, limit=20, page=page).get_response()
         return products['products'], products['pagination']['totalPageCount']
 
     def get_orders(self, page, article):
@@ -362,10 +365,10 @@ class ParserRetailCRM:
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-da', '--dateAt', help='Дата оформления заказа (от)')
-    parser.add_argument('-dt', '--dateTo', help='Дата оформления заказа (до)')
-    args = parser.parse_args()
-    # dateAt, dateTo = '2021-02-01', '2021-03-30'
-    main = ParserRetailCRM(args.dateAt, args.dateTo)
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument('-da', '--dateAt', help='Дата оформления заказа (от)')
+    # parser.add_argument('-dt', '--dateTo', help='Дата оформления заказа (до)')
+    # args = parser.parse_args()
+    dateAt, dateTo = '2020-03-01', '2021-03-31'
+    main = ParserRetailCRM(dateAt, dateTo)
     main.parse_product()
