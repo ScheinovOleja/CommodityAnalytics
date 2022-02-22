@@ -322,7 +322,10 @@ class ParserRetailCRM:
             all_status = self.client.status_groups().get_response()['statusGroups']
             # TODO перебор всей истории заказа и дальнейший расчет
             for history_status in history_statuses:
-                self.calc_all_history(history_status, all_status, product, order)
+                try:
+                    self.calc_all_history(history_status, all_status, product, order)
+                except TypeError:
+                    continue
 
     def get_products(self, page):
         """
